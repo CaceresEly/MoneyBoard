@@ -2,12 +2,12 @@ import Dashboard from '../pages/Dashboard'
 
 function MainLayout() {
   return (
-    <div>
-      <header>
+    <div className="app">
+      <header className="app-header">
         <h1>MoneyBoard</h1>
       </header>
 
-      <main>
+      <main className="app-main">
         <Dashboard />
       </main>
     </div>
