@@ -36,3 +36,27 @@ textarea {
   margin: 0 auto;
   padding: 32px;
 }
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.summary-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.summary-card h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.summary-card p {
+  font-size: 20px;
+  font-weight: bold;
+}
