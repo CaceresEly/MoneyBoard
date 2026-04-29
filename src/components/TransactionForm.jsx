@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function TransactionForm() {
+function TransactionForm({ onAddTransaction }) {
   const [description, setDescription] = useState('')
   const [amount, setAmount] = useState('')
   const [type, setType] = useState('')
@@ -14,7 +14,7 @@ function TransactionForm() {
       type,
     }
 
-    console.log(newTransaction)
+    onAddTransaction(newTransaction)
 
     // limpar campos
     setDescription('')

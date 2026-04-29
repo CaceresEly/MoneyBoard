@@ -1,10 +1,23 @@
+import { useState } from 'react'
 import SummaryCard from '../components/SummaryCard'
+import TransactionForm from '../components/TransactionForm'
 import TransactionList from '../components/TransactionList'
 import { summaryData } from '../data/summaryData'
 import { transactionsData } from '../data/transactionsData'
-import TransactionForm from '../components/TransactionForm'
 
 function Dashboard() {
+  const [transactions, setTransactions] = useState(transactionsData)
+
+  function handleAddTransaction(newTransaction) {
+    setTransactions((currentTransactions) => [
+      ...currentTransactions,
+      {
+        id: crypto.randomUUID(),
+        ...newTransaction,
+      },
+    ])
+  }
+
   return (
     <section>
       <h2>Dashboard</h2>
@@ -15,8 +28,8 @@ function Dashboard() {
         ))}
       </div>
 
-      <TransactionForm />
-      <TransactionList transactions={transactionsData} />
+      <TransactionForm onAddTransaction={handleAddTransaction} />
+      <TransactionList transactions={transactions} />
     </section>
   )
 }
