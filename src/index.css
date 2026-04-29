@@ -130,3 +130,21 @@ textarea {
 .transaction-form button:hover {
   background-color: #1f2937;
 }
+
+.transaction-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.delete-button {
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.delete-button:hover {
+  color: #b91c1c;
+}

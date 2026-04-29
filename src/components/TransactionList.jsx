@@ -1,4 +1,4 @@
-function TransactionList({ transactions }) {
+function TransactionList({ transactions, onDeleteTransaction }) {
   return (
     <section className="transactions-section">
       <h3>Transactions</h3>
@@ -11,13 +11,23 @@ function TransactionList({ transactions }) {
             <li className="transaction-item" key={transaction.id}>
               <span>{transaction.description}</span>
 
-              <strong className={isExpense ? 'expense' : 'income'}>
-                {isExpense ? '-' : '+'}
-                {transaction.amount.toLocaleString('en-US', {
-                  style: 'currency',
-                  currency: 'USD',
-                })}
-              </strong>
+              <div className="transaction-actions">
+                <strong className={isExpense ? 'expense' : 'income'}>
+                  {isExpense ? '-' : '+'}
+                  {transaction.amount.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                  })}
+                </strong>
+
+                <button
+                  type="button"
+                  className="delete-button"
+                  onClick={() => onDeleteTransaction(transaction.id)}
+                >
+                  Delete
+                </button>
+              </div>
             </li>
           )
         })}

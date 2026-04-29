@@ -5,23 +5,23 @@ import TransactionList from '../components/TransactionList'
 import { transactionsData } from '../data/transactionsData'
 
 function Dashboard() {
-    const [transactions, setTransactions] = useState(transactionsData)
-    
-    const income = transactions
+  const [transactions, setTransactions] = useState(transactionsData)
+
+  const income = transactions
     .filter((transaction) => transaction.type === 'income')
     .reduce((total, transaction) => total + transaction.amount, 0)
 
-    const expenses = transactions
+  const expenses = transactions
     .filter((transaction) => transaction.type === 'expense')
     .reduce((total, transaction) => total + transaction.amount, 0)
 
-    const balance = income - expenses
+  const balance = income - expenses
 
-    const summary = [
-        { id: 1, title: 'Income', amount: income },
-        { id: 2, title: 'Expenses', amount: expenses },
-        { id: 3, title: 'Balance', amount: balance },
-    ]
+  const summary = [
+    { id: 1, title: 'Income', amount: income },
+    { id: 2, title: 'Expenses', amount: expenses },
+    { id: 3, title: 'Balance', amount: balance },
+  ]
 
   function handleAddTransaction(newTransaction) {
     setTransactions((currentTransactions) => [
@@ -31,6 +31,12 @@ function Dashboard() {
         ...newTransaction,
       },
     ])
+  }
+
+  function handleDeleteTransaction(transactionId) {
+    setTransactions((currentTransactions) =>
+      currentTransactions.filter((transaction) => transaction.id !== transactionId)
+    )
   }
 
   return (
@@ -44,7 +50,11 @@ function Dashboard() {
       </div>
 
       <TransactionForm onAddTransaction={handleAddTransaction} />
-      <TransactionList transactions={transactions} />
+
+      <TransactionList
+        transactions={transactions}
+        onDeleteTransaction={handleDeleteTransaction}
+      />
     </section>
   )
 }
