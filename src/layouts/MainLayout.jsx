@@ -1,3 +1,5 @@
+import Dashboard from '../pages/Dashboard'
+
 function MainLayout() {
   return (
     <div>
@@ -6,7 +8,7 @@ function MainLayout() {
       </header>
 
       <main>
-        <p>Financial dashboard under construction.</p>
+        <Dashboard />
       </main>
     </div>
   )
