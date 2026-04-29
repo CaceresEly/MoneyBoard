@@ -8,19 +8,28 @@ function TransactionForm({ onAddTransaction }) {
   function handleSubmit(e) {
     e.preventDefault()
 
+    if (!description || !amount || !type) {
+        alert('Please fill in all fields')
+        return
+    }
+
+    if (Number(amount) <= 0) {
+        alert('Amount must be greater than 0')
+        return
+    }
+
     const newTransaction = {
-      description,
-      amount: Number(amount),
-      type,
+        description,
+        amount: Number(amount),
+        type,
     }
 
     onAddTransaction(newTransaction)
 
-    // limpar campos
     setDescription('')
     setAmount('')
     setType('')
-  }
+}
 
   return (
     <form className="transaction-form" onSubmit={handleSubmit}>
