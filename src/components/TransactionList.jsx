@@ -3,35 +3,41 @@ function TransactionList({ transactions, onDeleteTransaction }) {
     <section className="transactions-section">
       <h3>Transactions</h3>
 
-      <ul className="transaction-list">
-        {transactions.map((transaction) => {
-          const isExpense = transaction.type === 'expense'
+      {transactions.length === 0 && (
+        <p className="empty-state">No transactions registered yet.</p>
+      )}
 
-          return (
-            <li className="transaction-item" key={transaction.id}>
-              <span>{transaction.description}</span>
+      {transactions.length > 0 && (
+        <ul className="transaction-list">
+          {transactions.map((transaction) => {
+            const isExpense = transaction.type === 'expense'
 
-              <div className="transaction-actions">
-                <strong className={isExpense ? 'expense' : 'income'}>
-                  {isExpense ? '-' : '+'}
-                  {transaction.amount.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                  })}
-                </strong>
+            return (
+              <li className="transaction-item" key={transaction.id}>
+                <span>{transaction.description}</span>
 
-                <button
-                  type="button"
-                  className="delete-button"
-                  onClick={() => onDeleteTransaction(transaction.id)}
-                >
-                  Delete
-                </button>
-              </div>
-            </li>
-          )
-        })}
-      </ul>
+                <div className="transaction-actions">
+                  <strong className={isExpense ? 'expense' : 'income'}>
+                    {isExpense ? '-' : '+'}
+                    {transaction.amount.toLocaleString('en-US', {
+                      style: 'currency',
+                      currency: 'USD',
+                    })}
+                  </strong>
+
+                  <button
+                    type="button"
+                    className="delete-button"
+                    onClick={() => onDeleteTransaction(transaction.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </li>
+            )
+          })}
+        </ul>
+      )}
     </section>
   )
 }

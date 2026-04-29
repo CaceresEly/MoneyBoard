@@ -148,3 +148,8 @@ textarea {
 .delete-button:hover {
   color: #b91c1c;
 }
+
+.empty-state {
+  color: #6b7280;
+  font-size: 14px;
+}
