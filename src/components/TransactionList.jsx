@@ -1,16 +1,22 @@
 function TransactionList({ transactions }) {
   return (
-    <div>
+    <section className="transactions-section">
       <h3>Transactions</h3>
 
-      <ul>
+      <ul className="transaction-list">
         {transactions.map((transaction) => (
-          <li key={transaction.id}>
-            {transaction.description} — ${transaction.amount}
+          <li className="transaction-item" key={transaction.id}>
+            <span>{transaction.description}</span>
+            <strong>
+              {transaction.amount.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+              })}
+            </strong>
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   )
 }
 
