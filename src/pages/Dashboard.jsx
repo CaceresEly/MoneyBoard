@@ -2,6 +2,7 @@ import SummaryCard from '../components/SummaryCard'
 import TransactionList from '../components/TransactionList'
 import { summaryData } from '../data/summaryData'
 import { transactionsData } from '../data/transactionsData'
+import TransactionForm from '../components/TransactionForm'
 
 function Dashboard() {
   return (
@@ -14,6 +15,7 @@ function Dashboard() {
         ))}
       </div>
 
+      <TransactionForm />
       <TransactionList transactions={transactionsData} />
     </section>
   )
