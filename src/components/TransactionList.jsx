@@ -4,17 +4,23 @@ function TransactionList({ transactions }) {
       <h3>Transactions</h3>
 
       <ul className="transaction-list">
-        {transactions.map((transaction) => (
-          <li className="transaction-item" key={transaction.id}>
-            <span>{transaction.description}</span>
-            <strong>
-              {transaction.amount.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-              })}
-            </strong>
-          </li>
-        ))}
+        {transactions.map((transaction) => {
+          const isExpense = transaction.type === 'expense'
+
+          return (
+            <li className="transaction-item" key={transaction.id}>
+              <span>{transaction.description}</span>
+
+              <strong className={isExpense ? 'expense' : 'income'}>
+                {isExpense ? '-' : '+'}
+                {transaction.amount.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                })}
+              </strong>
+            </li>
+          )
+        })}
       </ul>
     </section>
   )

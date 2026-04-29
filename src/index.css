@@ -87,3 +87,11 @@ textarea {
 .transaction-item:last-child {
   border-bottom: none;
 }
+
+.income {
+  color: #047857;
+}
+
+.expense {
+  color: #b91c1c;
+}
