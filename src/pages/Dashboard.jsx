@@ -1,4 +1,5 @@
 import SummaryCard from '../components/SummaryCard'
+import { summaryData } from '../data/summaryData'
 
 function Dashboard() {
   return (
@@ -6,9 +7,9 @@ function Dashboard() {
       <h2>Dashboard</h2>
 
       <div className="summary-grid">
-        <SummaryCard title="Income" amount="5000" />
-        <SummaryCard title="Expenses" amount="2000" />
-        <SummaryCard title="Balance" amount="3000" />
+        {summaryData.map((item) => (
+          <SummaryCard key={item.id} title={item.title} amount={item.amount} />
+        ))}
       </div>
     </section>
   )
