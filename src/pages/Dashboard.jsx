@@ -1,11 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import SummaryCard from '../components/SummaryCard'
 import TransactionForm from '../components/TransactionForm'
 import TransactionList from '../components/TransactionList'
 import { transactionsData } from '../data/transactionsData'
 
 function Dashboard() {
-  const [transactions, setTransactions] = useState(transactionsData)
+  const [transactions, setTransactions] = useState(() => {
+    const storedTransactions = localStorage.getItem('transactions')
+
+    if (storedTransactions) {
+      return JSON.parse(storedTransactions)
+    }
+
+    return transactionsData
+  })
+
+  useEffect(() => {
+    localStorage.setItem('transactions', JSON.stringify(transactions))
+  }, [transactions])
 
   const income = transactions
     .filter((transaction) => transaction.type === 'income')
