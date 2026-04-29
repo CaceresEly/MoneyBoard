@@ -1,5 +1,7 @@
 import SummaryCard from '../components/SummaryCard'
+import TransactionList from '../components/TransactionList'
 import { summaryData } from '../data/summaryData'
+import { transactionsData } from '../data/transactionsData'
 
 function Dashboard() {
   return (
@@ -11,6 +13,8 @@ function Dashboard() {
           <SummaryCard key={item.id} title={item.title} amount={item.amount} />
         ))}
       </div>
+
+      <TransactionList transactions={transactionsData} />
     </section>
   )
 }
