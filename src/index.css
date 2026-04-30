@@ -187,3 +187,27 @@ textarea {
 .chart-section h3 {
   margin-bottom: 16px;
 }
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 20px;
+  }
+
+  .app-main {
+    padding: 20px;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .transaction-item {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .transaction-actions {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
