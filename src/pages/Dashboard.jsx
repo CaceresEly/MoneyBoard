@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import ExpenseChart from '../components/ExpenseChart'
 import SummaryCard from '../components/SummaryCard'
 import TransactionForm from '../components/TransactionForm'
 import TransactionList from '../components/TransactionList'
@@ -35,7 +36,6 @@ function Dashboard() {
     { id: 3, title: 'Balance', amount: balance },
   ]
 
-  // 🔥 NOVO: agrupar despesas por categoria
   const expensesByCategory = transactions
     .filter((transaction) => transaction.type === 'expense')
     .reduce((acc, transaction) => {
@@ -50,7 +50,6 @@ function Dashboard() {
       return acc
     }, {})
 
-  // transformar em array (pronto para gráfico)
   const chartData = Object.entries(expensesByCategory).map(
     ([category, amount]) => ({
       category,
@@ -92,6 +91,8 @@ function Dashboard() {
         ))}
       </div>
 
+      <ExpenseChart data={chartData} />
+
       <TransactionForm onAddTransaction={handleAddTransaction} />
 
       <button className="clear-button" onClick={handleClearTransactions}>
@@ -102,11 +103,6 @@ function Dashboard() {
         transactions={transactions}
         onDeleteTransaction={handleDeleteTransaction}
       />
-
-      {/* 👇 temporário só pra debug */}
-      <pre style={{ marginTop: '24px' }}>
-        {JSON.stringify(chartData, null, 2)}
-      </pre>
     </section>
   )
 }
