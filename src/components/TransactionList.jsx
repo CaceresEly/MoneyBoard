@@ -1,22 +1,25 @@
 function TransactionList({ transactions, onDeleteTransaction }) {
-  const sortedTransactions = [...transactions].reverse()
-
   return (
     <section className="transactions-section">
       <h3>Transactions</h3>
 
-      {sortedTransactions.length === 0 && (
+      {transactions.length === 0 && (
         <p className="empty-state">No transactions registered yet.</p>
       )}
 
-      {sortedTransactions.length > 0 && (
+      {transactions.length > 0 && (
         <ul className="transaction-list">
-          {sortedTransactions.map((transaction) => {
+          {transactions.map((transaction) => {
             const isExpense = transaction.type === 'expense'
 
             return (
               <li className="transaction-item" key={transaction.id}>
-                <span>{transaction.description}</span>
+                <div>
+                  <span>{transaction.description}</span>
+                  <small className="transaction-type">
+                    {transaction.type}
+                  </small>
+                </div>
 
                 <div className="transaction-actions">
                   <strong className={isExpense ? 'expense' : 'income'}>

@@ -167,3 +167,11 @@ textarea {
 .clear-button:hover {
   background-color: #991b1b;
 }
+
+.transaction-type {
+  display: block;
+  margin-top: 4px;
+  color: #6b7280;
+  font-size: 12px;
+  text-transform: capitalize;
+}
