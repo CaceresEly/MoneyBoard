@@ -1,13 +1,13 @@
 function SummaryCard({ title, amount }) {
+  const formattedAmount = amount.toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  })
+
   return (
     <div className="summary-card">
       <h3>{title}</h3>
-      <p>
-        {amount.toLocaleString('en-US', {
-          style: 'currency',
-          currency: 'USD',
-        })}
-      </p>
+      <p>{formattedAmount}</p>
     </div>
   )
 }
