@@ -35,6 +35,29 @@ function Dashboard() {
     { id: 3, title: 'Balance', amount: balance },
   ]
 
+  // 🔥 NOVO: agrupar despesas por categoria
+  const expensesByCategory = transactions
+    .filter((transaction) => transaction.type === 'expense')
+    .reduce((acc, transaction) => {
+      const category = transaction.category || 'other'
+
+      if (!acc[category]) {
+        acc[category] = 0
+      }
+
+      acc[category] += transaction.amount
+
+      return acc
+    }, {})
+
+  // transformar em array (pronto para gráfico)
+  const chartData = Object.entries(expensesByCategory).map(
+    ([category, amount]) => ({
+      category,
+      amount,
+    })
+  )
+
   function handleAddTransaction(newTransaction) {
     setTransactions((currentTransactions) => [
       ...currentTransactions,
@@ -79,6 +102,11 @@ function Dashboard() {
         transactions={transactions}
         onDeleteTransaction={handleDeleteTransaction}
       />
+
+      {/* 👇 temporário só pra debug */}
+      <pre style={{ marginTop: '24px' }}>
+        {JSON.stringify(chartData, null, 2)}
+      </pre>
     </section>
   )
 }
