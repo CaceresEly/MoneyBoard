@@ -17,7 +17,7 @@ function TransactionList({ transactions, onDeleteTransaction }) {
                 <div>
                   <span>{transaction.description}</span>
                   <small className="transaction-type">
-                    {transaction.type}
+                    {transaction.type} • {transaction.category}
                   </small>
                 </div>
 
