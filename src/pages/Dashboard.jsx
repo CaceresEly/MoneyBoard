@@ -51,6 +51,14 @@ function Dashboard() {
     )
   }
 
+  function handleClearTransactions() {
+    const confirmClear = window.confirm('Are you sure you want to delete all transactions?')
+
+    if (confirmClear) {
+      setTransactions([])
+    }
+  }
+
   return (
     <section>
       <h2>Dashboard</h2>
@@ -62,6 +70,10 @@ function Dashboard() {
       </div>
 
       <TransactionForm onAddTransaction={handleAddTransaction} />
+
+      <button className="clear-button" onClick={handleClearTransactions}>
+        Clear all transactions
+      </button>
 
       <TransactionList
         transactions={transactions}

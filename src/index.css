@@ -153,3 +153,17 @@ textarea {
   color: #6b7280;
   font-size: 14px;
 }
+
+.clear-button {
+  margin-top: 16px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #b91c1c;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.clear-button:hover {
+  background-color: #991b1b;
+}
