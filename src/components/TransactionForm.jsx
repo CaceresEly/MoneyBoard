@@ -4,8 +4,8 @@ import { categories } from '../data/categories'
 function TransactionForm({ onAddTransaction }) {
   const [description, setDescription] = useState('')
   const [amount, setAmount] = useState('')
-  const [type, setType] = useState('')
-  const [category, setCategory] = useState('')
+  const [type, setType] = useState('expense') // 👈 default melhor
+  const [category, setCategory] = useState('other') // 👈 default melhor
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -29,10 +29,9 @@ function TransactionForm({ onAddTransaction }) {
 
     onAddTransaction(newTransaction)
 
+    // 👇 UX melhor: mantém type e category
     setDescription('')
     setAmount('')
-    setType('')
-    setCategory('')
   }
 
   return (
@@ -54,18 +53,11 @@ function TransactionForm({ onAddTransaction }) {
       />
 
       <select value={type} onChange={(e) => setType(e.target.value)}>
-        <option value="" disabled>
-          Select type
-        </option>
         <option value="income">Income</option>
         <option value="expense">Expense</option>
       </select>
 
       <select value={category} onChange={(e) => setCategory(e.target.value)}>
-        <option value="" disabled>
-          Select category
-        </option>
-
         {categories.map((category) => (
           <option key={category.value} value={category.value}>
             {category.label}
