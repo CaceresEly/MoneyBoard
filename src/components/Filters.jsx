@@ -7,6 +7,7 @@ function Filters({
   onTypeChange,
   onCategoryChange,
   onSearchChange,
+  onClearFilters,
 }) {
   return (
     <section className="filters">
@@ -35,6 +36,10 @@ function Filters({
           </option>
         ))}
       </select>
+
+      <button type="button" className="clear-filters-button" onClick={onClearFilters}>
+        Clear filters
+      </button>
     </section>
   )
 }

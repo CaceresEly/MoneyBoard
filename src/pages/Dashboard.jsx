@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import ExpenseChart from '../components/ExpenseChart'
+import Filters from '../components/Filters'
 import SummaryCard from '../components/SummaryCard'
 import TransactionForm from '../components/TransactionForm'
 import TransactionList from '../components/TransactionList'
@@ -16,9 +17,27 @@ function Dashboard() {
     return transactionsData
   })
 
+  const [selectedType, setSelectedType] = useState('all')
+  const [selectedCategory, setSelectedCategory] = useState('all')
+  const [search, setSearch] = useState('')
+
   useEffect(() => {
     localStorage.setItem('transactions', JSON.stringify(transactions))
   }, [transactions])
+
+  const filteredTransactions = transactions.filter((transaction) => {
+    const matchesType =
+      selectedType === 'all' || transaction.type === selectedType
+
+    const matchesCategory =
+      selectedCategory === 'all' || transaction.category === selectedCategory
+
+    const matchesSearch = transaction.description
+      .toLowerCase()
+      .includes(search.toLowerCase())
+
+    return matchesType && matchesCategory && matchesSearch
+  })
 
   const income = transactions
     .filter((transaction) => transaction.type === 'income')
@@ -95,12 +114,21 @@ function Dashboard() {
 
       <TransactionForm onAddTransaction={handleAddTransaction} />
 
+      <Filters
+        selectedType={selectedType}
+        selectedCategory={selectedCategory}
+        search={search}
+        onTypeChange={setSelectedType}
+        onCategoryChange={setSelectedCategory}
+        onSearchChange={setSearch}
+      />
+
       <button className="clear-button" onClick={handleClearTransactions}>
         Clear all transactions
       </button>
 
       <TransactionList
-        transactions={transactions}
+        transactions={filteredTransactions}
         onDeleteTransaction={handleDeleteTransaction}
       />
     </section>
