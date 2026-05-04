@@ -5,6 +5,7 @@ import SummaryCard from '../components/SummaryCard'
 import TransactionForm from '../components/TransactionForm'
 import TransactionList from '../components/TransactionList'
 import { transactionsData } from '../data/transactionsData'
+import { getCategoryLabel } from '../utils/getCategoryLabel'
 
 function Dashboard() {
   const [transactions, setTransactions] = useState(() => {
@@ -70,11 +71,11 @@ function Dashboard() {
     }, {})
 
   const chartData = Object.entries(expensesByCategory).map(
-    ([category, amount]) => ({
-      category,
-      amount,
-    })
-  )
+  ([category, amount]) => ({
+    category: getCategoryLabel(category),
+    amount,
+  })
+)
 
   function handleAddTransaction(newTransaction) {
     setTransactions((currentTransactions) => [

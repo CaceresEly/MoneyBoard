@@ -1,3 +1,4 @@
+import { getCategoryLabel } from '../utils/getCategoryLabel'
 import { formatCurrency } from '../utils/formatCurrency'
 
 function TransactionList({ transactions, onDeleteTransaction }) {
@@ -19,7 +20,7 @@ function TransactionList({ transactions, onDeleteTransaction }) {
                 <div>
                   <span>{transaction.description}</span>
                   <small className="transaction-type">
-                    {transaction.type} • {transaction.category}
+                    {transaction.type} • {getCategoryLabel(transaction.category)}
                   </small>
                 </div>
 
