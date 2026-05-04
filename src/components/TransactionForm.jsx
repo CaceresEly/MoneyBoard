@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { categories } from '../data/categories'
 
 function TransactionForm({ onAddTransaction }) {
   const [description, setDescription] = useState('')
@@ -64,12 +65,12 @@ function TransactionForm({ onAddTransaction }) {
         <option value="" disabled>
           Select category
         </option>
-        <option value="salary">Salary</option>
-        <option value="food">Food</option>
-        <option value="transport">Transport</option>
-        <option value="bills">Bills</option>
-        <option value="entertainment">Entertainment</option>
-        <option value="other">Other</option>
+
+        {categories.map((category) => (
+          <option key={category.value} value={category.value}>
+            {category.label}
+          </option>
+        ))}
       </select>
 
       <button type="submit">Add transaction</button>
