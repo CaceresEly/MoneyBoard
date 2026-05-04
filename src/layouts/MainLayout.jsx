@@ -4,7 +4,10 @@ function MainLayout() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>MoneyBoard</h1>
+        <div>
+          <h1>MoneyBoard</h1>
+          <p>Personal finance dashboard</p>
+        </div>
       </header>
 
       <main className="app-main">
