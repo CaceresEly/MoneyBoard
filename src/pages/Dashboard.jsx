@@ -25,6 +25,7 @@ function Dashboard() {
     localStorage.setItem('transactions', JSON.stringify(transactions))
   }, [transactions])
 
+  // 🔎 filtros
   const filteredTransactions = transactions.filter((transaction) => {
     const matchesType =
       selectedType === 'all' || transaction.type === selectedType
@@ -39,6 +40,7 @@ function Dashboard() {
     return matchesType && matchesCategory && matchesSearch
   })
 
+  // 💰 resumo
   const income = transactions
     .filter((transaction) => transaction.type === 'income')
     .reduce((total, transaction) => total + transaction.amount, 0)
@@ -55,6 +57,7 @@ function Dashboard() {
     { id: 3, title: 'Balance', amount: balance },
   ]
 
+  // 📊 gráfico
   const expensesByCategory = transactions
     .filter((transaction) => transaction.type === 'expense')
     .reduce((acc, transaction) => {
@@ -76,6 +79,7 @@ function Dashboard() {
     })
   )
 
+  // ➕ adicionar
   function handleAddTransaction(newTransaction) {
     setTransactions((currentTransactions) => [
       ...currentTransactions,
@@ -86,18 +90,29 @@ function Dashboard() {
     ])
   }
 
+  // ❌ deletar
   function handleDeleteTransaction(transactionId) {
     setTransactions((currentTransactions) =>
       currentTransactions.filter((transaction) => transaction.id !== transactionId)
     )
   }
 
+  // 🧹 limpar tudo
   function handleClearTransactions() {
-    const confirmClear = window.confirm('Are you sure you want to delete all transactions?')
+    const confirmClear = window.confirm(
+      'Are you sure you want to delete all transactions?'
+    )
 
     if (confirmClear) {
       setTransactions([])
     }
+  }
+
+  // 🔄 limpar filtros
+  function handleClearFilters() {
+    setSelectedType('all')
+    setSelectedCategory('all')
+    setSearch('')
   }
 
   return (
@@ -121,6 +136,7 @@ function Dashboard() {
         onTypeChange={setSelectedType}
         onCategoryChange={setSelectedCategory}
         onSearchChange={setSearch}
+        onClearFilters={handleClearFilters}
       />
 
       <button className="clear-button" onClick={handleClearTransactions}>
