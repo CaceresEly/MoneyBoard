@@ -211,3 +211,17 @@ textarea {
     align-items: flex-end;
   }
 }
+
+.filters {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 12px;
+}
+
+.filters input,
+.filters select {
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
