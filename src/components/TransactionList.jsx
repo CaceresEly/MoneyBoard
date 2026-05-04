@@ -1,3 +1,5 @@
+import { formatCurrency } from '../utils/formatCurrency'
+
 function TransactionList({ transactions, onDeleteTransaction }) {
   return (
     <section className="transactions-section">
@@ -24,10 +26,7 @@ function TransactionList({ transactions, onDeleteTransaction }) {
                 <div className="transaction-actions">
                   <strong className={isExpense ? 'expense' : 'income'}>
                     {isExpense ? '-' : '+'}
-                    {transaction.amount.toLocaleString('en-US', {
-                      style: 'currency',
-                      currency: 'USD',
-                    })}
+                    {formatCurrency(transaction.amount)}
                   </strong>
 
                   <button
