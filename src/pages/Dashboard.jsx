@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import CsvImporter from '../components/CsvImporter'
 import ExpenseChart from '../components/ExpenseChart'
 import Filters from '../components/Filters'
 import SummaryCard from '../components/SummaryCard'
@@ -26,6 +27,7 @@ function Dashboard() {
     localStorage.setItem('transactions', JSON.stringify(transactions))
   }, [transactions])
 
+  // 🔎 filtros
   const filteredTransactions = transactions.filter((transaction) => {
     const matchesType =
       selectedType === 'all' || transaction.type === selectedType
@@ -40,6 +42,7 @@ function Dashboard() {
     return matchesType && matchesCategory && matchesSearch
   })
 
+  // 💰 resumo
   const income = transactions
     .filter((transaction) => transaction.type === 'income')
     .reduce((total, transaction) => total + transaction.amount, 0)
@@ -56,6 +59,7 @@ function Dashboard() {
     { id: 3, title: 'Balance', amount: balance },
   ]
 
+  // 📊 gráfico
   const expensesByCategory = transactions
     .filter((transaction) => transaction.type === 'expense')
     .reduce((acc, transaction) => {
@@ -71,12 +75,13 @@ function Dashboard() {
     }, {})
 
   const chartData = Object.entries(expensesByCategory).map(
-  ([category, amount]) => ({
-    category: getCategoryLabel(category),
-    amount,
-  })
-)
+    ([category, amount]) => ({
+      category: getCategoryLabel(category),
+      amount,
+    })
+  )
 
+  // ➕ adicionar
   function handleAddTransaction(newTransaction) {
     setTransactions((currentTransactions) => [
       ...currentTransactions,
@@ -87,12 +92,22 @@ function Dashboard() {
     ])
   }
 
+  // 📥 importar CSV
+  function handleImportTransactions(importedTransactions) {
+    setTransactions((currentTransactions) => [
+      ...currentTransactions,
+      ...importedTransactions,
+    ])
+  }
+
+  // ❌ deletar
   function handleDeleteTransaction(transactionId) {
     setTransactions((currentTransactions) =>
       currentTransactions.filter((transaction) => transaction.id !== transactionId)
     )
   }
 
+  // 🧹 limpar tudo
   function handleClearTransactions() {
     const confirmClear = window.confirm(
       'Are you sure you want to delete all transactions?'
@@ -103,6 +118,7 @@ function Dashboard() {
     }
   }
 
+  // 🔄 limpar filtros
   function handleClearFilters() {
     setSelectedType('all')
     setSelectedCategory('all')
@@ -128,6 +144,9 @@ function Dashboard() {
         <ExpenseChart data={chartData} />
         <TransactionForm onAddTransaction={handleAddTransaction} />
       </div>
+
+      {/* 👇 IMPORTADOR CSV */}
+      <CsvImporter onImportTransactions={handleImportTransactions} />
 
       <Filters
         selectedType={selectedType}
