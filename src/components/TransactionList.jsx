@@ -19,8 +19,10 @@ function TransactionList({ transactions, onDeleteTransaction }) {
               <li className="transaction-item" key={transaction.id}>
                 <div>
                   <span>{transaction.description}</span>
+
                   <small className="transaction-type">
                     {transaction.type} • {getCategoryLabel(transaction.category)}
+                    {transaction.date && ` • ${transaction.date}`}
                   </small>
                 </div>
 
