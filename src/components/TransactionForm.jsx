@@ -1,16 +1,18 @@
 import { useState } from 'react'
 import { categories } from '../data/categories'
+import { categorizeTransaction } from '../utils/categorizeTransaction'
 
 function TransactionForm({ onAddTransaction }) {
   const [description, setDescription] = useState('')
   const [amount, setAmount] = useState('')
-  const [type, setType] = useState('expense') // 👈 default melhor
-  const [category, setCategory] = useState('other') // 👈 default melhor
+  const [type, setType] = useState('expense')
+  const [category, setCategory] = useState('other')
+  const [success, setSuccess] = useState(false)
 
   function handleSubmit(e) {
     e.preventDefault()
 
-    if (!description || !amount || !type || !category) {
+    if (!description || !amount) {
       alert('Please fill in all fields')
       return
     }
@@ -20,29 +22,42 @@ function TransactionForm({ onAddTransaction }) {
       return
     }
 
+    const autoCategory = categorizeTransaction(description)
+
     const newTransaction = {
       description,
       amount: Number(amount),
       type,
-      category,
+      category: autoCategory,
     }
 
     onAddTransaction(newTransaction)
 
-    // 👇 UX melhor: mantém type e category
     setDescription('')
     setAmount('')
+
+    setSuccess(true)
+    setTimeout(() => setSuccess(false), 2000)
   }
 
   return (
     <form className="transaction-form" onSubmit={handleSubmit}>
       <h3>Add transaction</h3>
 
+      {success && (
+        <p className="success-message">Transaction added successfully!</p>
+      )}
+
       <input
         type="text"
         placeholder="Description"
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        onChange={(e) => {
+          setDescription(e.target.value)
+
+          // opcional: atualizar categoria em tempo real
+          setCategory(categorizeTransaction(e.target.value))
+        }}
       />
 
       <input

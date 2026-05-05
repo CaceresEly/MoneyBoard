@@ -283,3 +283,11 @@ button {
     align-items: flex-end;
   }
 }
+
+.success-message {
+  background-color: #dcfce7;
+  color: #166534;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
