@@ -330,3 +330,24 @@ button {
     max-width: 100%;
   }
 }
+
+.csv-upload-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: 10px;
+  background-color: #111827;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.csv-upload-button:hover {
+  background-color: #1f2937;
+}
+
+.csv-upload-button input {
+  display: none;
+}

@@ -40,9 +40,12 @@ function CsvImporter({ onImportTransactions }) {
         <p>Upload a CSV file with description, amount, and type.</p>
       </div>
 
-      <input type="file" accept=".csv" onChange={handleFileChange} />
+      <label className="csv-upload-button">
+        Upload CSV
+        <input type="file" accept=".csv" onChange={handleFileChange} />
+      </label>
     </section>
   )
 }
 
-export default CsvImporter      
+export default CsvImporter
