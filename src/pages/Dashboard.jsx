@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import ChartPeriodFilter from '../components/ChartPeriodFilter'
 import CsvImporter from '../components/CsvImporter'
 import ExpenseChart from '../components/ExpenseChart'
 import Filters from '../components/Filters'
@@ -21,6 +22,10 @@ function Dashboard() {
   })
 
   const [activeTab, setActiveTab] = useState('dashboard')
+
+  // 👇 NOVO
+  const [selectedPeriod, setSelectedPeriod] = useState('monthly')
+
   const [selectedType, setSelectedType] = useState('all')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [search, setSearch] = useState('')
@@ -141,6 +146,12 @@ function Dashboard() {
               />
             ))}
           </div>
+
+          {/* 👇 NOVO */}
+          <ChartPeriodFilter
+            selectedPeriod={selectedPeriod}
+            onPeriodChange={setSelectedPeriod}
+          />
 
           <ExpenseChart data={chartData} />
         </>
