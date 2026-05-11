@@ -3,6 +3,7 @@ import CsvImporter from '../components/CsvImporter'
 import ExpenseChart from '../components/ExpenseChart'
 import Filters from '../components/Filters'
 import SummaryCard from '../components/SummaryCard'
+import Tabs from '../components/Tabs'
 import TransactionForm from '../components/TransactionForm'
 import TransactionList from '../components/TransactionList'
 import { transactionsData } from '../data/transactionsData'
@@ -19,6 +20,7 @@ function Dashboard() {
     return transactionsData
   })
 
+  const [activeTab, setActiveTab] = useState('dashboard')
   const [selectedType, setSelectedType] = useState('all')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [search, setSearch] = useState('')
@@ -27,7 +29,6 @@ function Dashboard() {
     localStorage.setItem('transactions', JSON.stringify(transactions))
   }, [transactions])
 
-  // 🔎 filtros
   const filteredTransactions = transactions.filter((transaction) => {
     const matchesType =
       selectedType === 'all' || transaction.type === selectedType
@@ -42,7 +43,6 @@ function Dashboard() {
     return matchesType && matchesCategory && matchesSearch
   })
 
-  // 💰 resumo
   const income = transactions
     .filter((transaction) => transaction.type === 'income')
     .reduce((total, transaction) => total + transaction.amount, 0)
@@ -59,7 +59,6 @@ function Dashboard() {
     { id: 3, title: 'Balance', amount: balance },
   ]
 
-  // 📊 gráfico
   const expensesByCategory = transactions
     .filter((transaction) => transaction.type === 'expense')
     .reduce((acc, transaction) => {
@@ -81,7 +80,6 @@ function Dashboard() {
     })
   )
 
-  // ➕ adicionar
   function handleAddTransaction(newTransaction) {
     setTransactions((currentTransactions) => [
       ...currentTransactions,
@@ -92,7 +90,6 @@ function Dashboard() {
     ])
   }
 
-  // 📥 importar CSV
   function handleImportTransactions(importedTransactions) {
     setTransactions((currentTransactions) => [
       ...currentTransactions,
@@ -100,14 +97,12 @@ function Dashboard() {
     ])
   }
 
-  // ❌ deletar
   function handleDeleteTransaction(transactionId) {
     setTransactions((currentTransactions) =>
       currentTransactions.filter((transaction) => transaction.id !== transactionId)
     )
   }
 
-  // 🧹 limpar tudo
   function handleClearTransactions() {
     const confirmClear = window.confirm(
       'Are you sure you want to delete all transactions?'
@@ -118,7 +113,6 @@ function Dashboard() {
     }
   }
 
-  // 🔄 limpar filtros
   function handleClearFilters() {
     setSelectedType('all')
     setSelectedCategory('all')
@@ -129,43 +123,56 @@ function Dashboard() {
     <section className="dashboard">
       <div className="dashboard-header">
         <div>
-          <h2>Dashboard</h2>
-          <p>Track your income, expenses, and financial balance.</p>
+          <h2>MoneyBoard</h2>
+          <p>Track, import, and analyze your financial transactions.</p>
         </div>
       </div>
 
-      <div className="summary-grid">
-        {summary.map((item) => (
-          <SummaryCard key={item.id} title={item.title} amount={item.amount} />
-        ))}
-      </div>
+      <Tabs activeTab={activeTab} onTabChange={setActiveTab} />
 
-      <div className="dashboard-grid">
-        <ExpenseChart data={chartData} />
-        <TransactionForm onAddTransaction={handleAddTransaction} />
-      </div>
+      {activeTab === 'dashboard' && (
+        <>
+          <div className="summary-grid">
+            {summary.map((item) => (
+              <SummaryCard
+                key={item.id}
+                title={item.title}
+                amount={item.amount}
+              />
+            ))}
+          </div>
 
-      {/* 👇 IMPORTADOR CSV */}
-      <CsvImporter onImportTransactions={handleImportTransactions} />
+          <ExpenseChart data={chartData} />
+        </>
+      )}
 
-      <Filters
-        selectedType={selectedType}
-        selectedCategory={selectedCategory}
-        search={search}
-        onTypeChange={setSelectedType}
-        onCategoryChange={setSelectedCategory}
-        onSearchChange={setSearch}
-        onClearFilters={handleClearFilters}
-      />
+      {activeTab === 'transactions' && (
+        <>
+          <div className="dashboard-grid">
+            <TransactionForm onAddTransaction={handleAddTransaction} />
+            <CsvImporter onImportTransactions={handleImportTransactions} />
+          </div>
 
-      <button className="clear-button" onClick={handleClearTransactions}>
-        Clear all transactions
-      </button>
+          <Filters
+            selectedType={selectedType}
+            selectedCategory={selectedCategory}
+            search={search}
+            onTypeChange={setSelectedType}
+            onCategoryChange={setSelectedCategory}
+            onSearchChange={setSearch}
+            onClearFilters={handleClearFilters}
+          />
 
-      <TransactionList
-        transactions={filteredTransactions}
-        onDeleteTransaction={handleDeleteTransaction}
-      />
+          <button className="clear-button" onClick={handleClearTransactions}>
+            Clear all transactions
+          </button>
+
+          <TransactionList
+            transactions={filteredTransactions}
+            onDeleteTransaction={handleDeleteTransaction}
+          />
+        </>
+      )}
     </section>
   )
 }

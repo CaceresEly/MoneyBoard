@@ -351,3 +351,35 @@ button {
 .csv-upload-button input {
   display: none;
 }
+
+.tabs {
+  display: inline-flex;
+  gap: 8px;
+  padding: 6px;
+  margin-bottom: 24px;
+  background-color: #e5e7eb;
+  border-radius: 999px;
+}
+
+.tab {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background-color: transparent;
+  color: #4b5563;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.tab.active {
+  background-color: #111827;
+  color: #ffffff;
+}
+
+.tab:hover {
+  background-color: #d1d5db;
+}
+
+.tab.active:hover {
+  background-color: #111827;
+}
